@@ -10,11 +10,11 @@ require("./db/db");
 ///////////////////////////////
 
 const signUpRoute = require("./routers/routes/signUpRoute");
-//const loginRoute  = require("./routers/routes/loginRoute")
+const loginRoute  = require("./routers/routes/loginRoute")
 
 
 app.use(signUpRoute);
-//app.use(loginRoute);
+app.use(loginRoute);
 
 
 

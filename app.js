@@ -1,25 +1,23 @@
 const express = require("express");
-const cors = require("cors");
-
 const app = express();
-app.use(express.json());
-app.use(cors());
-
 require("./db/db");
+app.use(express.json());
+const cors = require("cors");
+app.use(cors());
 
 ///////////////////////////////
 
 const signUpRoute = require("./routers/routes/signUpRoute");
-const loginRoute  = require("./routers/routes/loginRoute")
-
+const loginRoute  = require("./routers/routes/loginRoute");
+const productsRoute  = require("./routers/routes/productsRoute");
 
 app.use(signUpRoute);
 app.use(loginRoute);
+app.use(productsRoute);
 
 
 
 ////////////////////
-
 const Port = 5000;
 app.listen(Port, () => {
   console.log("server run on 5000 port");

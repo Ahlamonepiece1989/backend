@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/rosesDB").then(
+mongoose.connect("mongodb+srv://user:user@cluster0.o9ihj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").then(
   () => {
     console.log("DB connected");
   },

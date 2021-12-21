@@ -1,29 +1,44 @@
 const productsModel = require("../../db/models/productsModel");
 
-//method to post new products
+
+// Add new products
 const addProducts = async (req, res) => {
-  const { title, price, imgLink } = req.body;
+
+
+  const { title, price, imgLink} = req.body;
+
+
+
+  const newProducts = new productsModel({title:title, price:price, imgLink:imgLink});
+
+  console.log(newProducts);
 
   try {
-    const newProducts = new productsModel({
-      title: title,
-      price: price,
-      imgLink: imgLink,
-    });
-    const savedProduct = await newProducts.save();
-    res.status(201).json(savedProduct);
-  } catch (error) {
-    res.send(error);
-  }
-};
-//method to get(find)products in the database
-const products = async (req, res) => {
-  try {
-    const products = await productsModel.find({});
-    res.status(200).json(products);
-  } catch (error) {
-    res.send(error);
-  }
-};
+      const savedProduct= await newProducts.save()
+      res.status(200).json(savedProduct)
 
-module.exports = { products, addProducts };
+  }catch (error){
+
+      res.send(error);
+
+  }
+
+}
+
+
+// Get all products.
+const products = async (req,res)=>{
+
+    try {
+
+        const products = await productsModel.find({});
+        res.status(200).json(products);
+
+    } catch (error){
+
+        res.send(error);
+
+    }
+}
+
+module.exports = {products, addProducts};

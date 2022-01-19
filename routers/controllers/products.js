@@ -1,3 +1,4 @@
+
 const productsModel = require("../../db/models/productsModel");
 
 
@@ -8,7 +9,7 @@ const addProducts = async (req, res) => {
   const { title, price, imgLink, occasionType} = req.body;
 
 
-
+//key from what i sent in body
   const newProducts = new productsModel({title:title, price:price, imgLink:imgLink, occasionType:occasionType});
 
   console.log(newProducts);
@@ -25,9 +26,9 @@ const addProducts = async (req, res) => {
 
 }
 
-//method for  delete request 
+
 const removeProducts = async (req, res) => {
-//send id by params
+
   const id = req.params.id;
 
 
@@ -36,7 +37,7 @@ const removeProducts = async (req, res) => {
 
   try{
 
-//declare var ()
+
     const deleteProduct = await productsModel.deleteOne({_id: id});
 
     console.log(deleteProduct);
@@ -56,57 +57,59 @@ const removeProducts = async (req, res) => {
 
 }
 
-
+// Update the product information 
 const updateProducts = async (req, res) => {
 
 
-  const { id,title, price, imgLink, occasionType} = req.body;
+   const {id, title, price, imgLink, occasionType} = req.body;
+
+   const product = new productsModel({
+
+    _id: id,
+    title: title,
+    price: price,
+    imgLink: imgLink,
+    occasionType: occasionType
+
+  }
+
+    );
 
 
-const product = new productsModel(
-//to store new edits
- {
+
+  try
+
+  {
+
+    const _id = id;
+
+    console.log(product);
+
+    const updateProduct = await productsModel.updateOne({_id: _id}, product);
+
+    console.log(updateProduct);
 
 
- _id: id,
- title: title,
- price: price,
- imgLink: imgLink,
- occasionType: occasionType
+    res.status(200).json(updateProduct);
 
 
- }
+  } catch (error) {
 
-   );
-console.log(id);
+    res.send(error);
 
- try{
-
-//تبحث عن العنصر ب الي دي  يحتاج تعديل,ومعاه البيانات المعدله
-   const updateProduct = await productsModel.updateOne({_id: id}, product);
-
-   console.log(updateProduct);
-
-
-   res.status(200).json(updateProduct);
-
-
- }catch (error) {
-
-   res.send(error);
-
- }
-
-
+  }
 
 
 }
+
+
+
 
 // Get all products.
 const products = async (req,res)=>{
 
     try {
-
+//to store pro and use
         const products = await productsModel.find({});
         res.status(200).json(products);
 
@@ -117,4 +120,5 @@ const products = async (req,res)=>{
     }
 }
 
-module.exports = {products, addProducts, removeProducts,updateProducts};
+
+module.exports = {products, addProducts, removeProducts, updateProducts};

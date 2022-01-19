@@ -1,16 +1,9 @@
 const mongoose = require("mongoose");
 
-
-const option = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-};
+console.log(process.env.DB_URL)
 
 
-const uri = "mongodb+srv://user:user@cluster0.o9ihj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-
-mongoose.connect(uri, option).then(
+mongoose.connect(process.env.DB_URL).then(
   () => {
     console.log("DB connected");
   },

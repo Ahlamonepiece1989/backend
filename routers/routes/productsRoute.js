@@ -1,7 +1,8 @@
 const express = require("express");
+
 const productsRoute = express.Router();
 
-const { products, addProducts, removeProducts,updateProducts} = require("../controllers/products");
+const { products, addProducts, removeProducts, updateProducts } = require("../controllers/products");
 
 const {authentication} = require("../middlewares/authentication");
 
@@ -13,12 +14,14 @@ productsRoute.post("/products", authentication, addProducts);
 
 
 
-{/* Authentication when admin want to remove products*/}
-productsRoute.delete("/products", authentication, removeProducts);
+{/* Authentication is used when admin want to remove products*/}
+productsRoute.delete("/products/:id", authentication, removeProducts);
  
 
- {/* Authentication is used when admin want to update products*/}
-productsRoute.put("/products/:id", authentication, updateProducts);
 
+{/* Authentication is used when admin want to update products*/}
+productsRoute.put("/products", authentication, updateProducts);
+
+ 
 
 module.exports = productsRoute;

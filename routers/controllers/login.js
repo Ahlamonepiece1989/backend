@@ -4,7 +4,7 @@ const userModel = require("../../db/models/userModel");
 
 
 
-
+// Method used to sign in. Check if use exist in the database.
 const login = async (req, res) => {
   let { email, password } = req.body;
 
@@ -15,8 +15,8 @@ const login = async (req, res) => {
       if (see === true) {
         const payload = { userId: user._id, userName: user.name };
         const token = jwt.sign(payload, "ABC");
-        res.status(200).json({ token });
-        
+        res.status(200).json({ token, user });
+        // res.status(200).json(`Hello admain! ${user.name}`);
       } else {
         res.status(403).json("wrong PassWord!");
       }

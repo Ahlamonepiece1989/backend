@@ -1,4 +1,3 @@
-
 const productsModel = require("../../db/models/productsModel");
 
 
